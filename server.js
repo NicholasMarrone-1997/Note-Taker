@@ -20,3 +20,7 @@ app.use(express.static("public"));
 // The below points our server to a series of "route" files.
 // These routes give our server a "map" of how to respond when users visit or request data from various URLs.
 
+// Respond with notes.html file when a get request is made to the notes page
+app.get('/public/notes', function (req, res) {
+    res.sendFile(path.join(__dirname + '/notes.html'));
+  });
