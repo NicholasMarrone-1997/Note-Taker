@@ -33,7 +33,7 @@ app.get('/notes', function (req, res) {
 // GET /api/notes should read the db.json file and return all saved notes as JSON.
 app.get("/api/notes", function(err, res){
     try{
-        let noteData = fs.readFileSync("\db\db.json");
+        let noteData = fs.readFileSync("db\db.json");
         noteData = JSON.parse(noteData);
     } catch (err) {
         console.log(err);
