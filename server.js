@@ -47,11 +47,16 @@ app.get('/api/notes', function (req, res) {
 // You'll need to find a way to give each note a unique id when it's saved (look into npm packages that could do this for you).
 app.post("/api/notes", function (req, res) {
     try {
-        let noteData = fs.readFileSync("/db/db.json");
+        let obj = req.body; //object
+        let noteData = fs.readFileSync("./db/db.json");
         noteData = JSON.parse(noteData);
+        obj.id = uuidv4();
+        noteData.push(obj);
         console.log(noteData);
-        let newNote = noteData.push(req.body);
-        console.log(newNote);
+         
+        fs.writeFileSync("./db/db.json", JSON.stringify(noteData));
+        res.redirect('back');
+        
 
     } catch (err) {
         console.log(err);
@@ -63,4 +68,3 @@ app.post("/api/notes", function (req, res) {
 app.listen(PORT, function () {
     console.log("Listening on: " + PORT);
 });
-
