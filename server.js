@@ -37,23 +37,19 @@ app.get('/', function (req, res) {
 });
 
 // GET /api/notes should read the db.json file and return all saved notes as JSON.
-app.get("/api/notes", function (req, res) {
-    try {
-        let noteData = fs.readFileSync("db/db.json");
-        noteData = JSON.parse(noteData);
-        
-    } catch (err) {
-        console.log(err);
-    }
+app.get('/api/notes', function (req, res) {
+    res.sendFile(path.join(__dirname + 'db\db.json'));
 });
 
 // POST /api/notes should receive a new note to save on the request body, add it to the db.json file, and then return the new note to the client. 
 // You'll need to find a way to give each note a unique id when it's saved (look into npm packages that could do this for you).
 app.post("/api/notes", function (req, res) {
     try {
-        let noteData = fs.readFileSync("db/db.json");
+        let noteData = fs.readFileSync("db\db.json");
         noteData = JSON.parse(noteData);
-
+        console.log(noteData);
+        let newNote = noteData.push(req.body);
+        console.log(newNote);
 
     } catch (err) {
         console.log(err);
