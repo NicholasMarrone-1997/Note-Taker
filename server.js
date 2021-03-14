@@ -53,15 +53,32 @@ app.post("/api/notes", function (req, res) {
         obj.id = uuidv4();
         noteData.push(obj);
         console.log(noteData);
-         
+
         fs.writeFileSync("./db/db.json", JSON.stringify(noteData));
         res.redirect('back');
-        
 
     } catch (err) {
         console.log(err);
     }
 });
+
+// `DELETE /api/notes/:id` should receive a query parameter containing the id of a note to delete.
+// In order to delete a note, you'll need to read all notes from the `db.json` file, remove the note with the given `id` property, and then rewrite the notes to the `db.json` file.
+
+app.delete('/api/notes/:id', function (req, res) {
+    let noteData = fs.readFileSync("./db/db.json");
+    noteData = JSON.parse(noteData);
+    const id = req.params.id;
+
+   const index = noteData.findIndex(x => x.id === id);
+   noteData.splice(index, 1);
+   console.log(index);
+   console.log(noteData);
+
+   fs.writeFileSync("./db/db.json", JSON.stringify(noteData));
+
+   res.redirect('back');
+})
 
 
 // Start app on specified port
