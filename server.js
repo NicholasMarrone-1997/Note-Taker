@@ -55,7 +55,7 @@ app.post("/api/notes", function (req, res) {
         console.log(noteData);
 
         fs.writeFileSync("./db/db.json", JSON.stringify(noteData));
-        res.redirect('back');
+        res.redirect('back'); //redirects to the URL derived from the specified path,
 
     } catch (err) {
         console.log(err);
@@ -76,7 +76,6 @@ app.delete('/api/notes/:id', function (req, res) {
    console.log(noteData);
 
    fs.writeFileSync("./db/db.json", JSON.stringify(noteData));
-
    res.redirect('back');
 })
 
